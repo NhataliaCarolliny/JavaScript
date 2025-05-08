@@ -3,7 +3,7 @@ let resultado = n1 * n2;
 
 console.log("Resultado = ", resultado);
 
-let nome = Nhatalia;
+let nome = "Nhatalia";
 let idade = 27;
 
 let mensagem1 = "Olá, " + nome + "! Você tem " + idade + " anos.";
