@@ -14,4 +14,4 @@ console.log("Altura: ", altura, "m");
 
 confirmacao = confirm("Deseja continuar?");
 
-confirmacao = true ? console.log(nome, ", seu IMC é", imc) : console.log("Você saiu do programa");
+confirmacao == true ? console.log(nome, ", seu IMC é", imc) : console.log("Você saiu do programa");
