@@ -1,10 +1,11 @@
 let nome, peso, altura;
-let imc = peso/(altura*altura);
 let confirmacao;
 
 nome = prompt("Qual o seu nome? ");
 peso = prompt("Qual o seu peso? ");
 altura = prompt("Qual sua altura? ");
+
+let imc = peso/(altura*altura);
 
 console.log("Seus dados:");
 console.log("Nome: ", nome);
