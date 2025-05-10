@@ -1,4 +1,5 @@
 let nome, peso, altura;
+let imc = peso/(altura*altura);
 let confirmacao;
 
 nome = prompt("Qual o seu nome? ");
