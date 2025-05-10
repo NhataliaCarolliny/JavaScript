@@ -9,4 +9,4 @@ console.log("Valor original: ", valor);
 
 valor >= 100 ? console.log("Desconto aplicado: ", valorDesconto10) : console.log("Desconto aplicado: ", valorDesconto5);
 
-console.log("Valor total: ", valor);
+valor >= 100 ? console.log("Valor total: ", valor-valorDesconto10) : console.log("Valor total: ", valor-valorDesconto5);
