@@ -5,6 +5,9 @@ nome = prompt("Qual o seu nome? ");
 peso = prompt("Qual o seu peso? ");
 altura = prompt("Qual sua altura? ");
 
+peso = Number(peso);
+altura = Number(altura);
+
 let imc = peso/(altura*altura);
 
 console.log("Seus dados:");
@@ -14,4 +17,4 @@ console.log("Altura: ", altura, "m");
 
 confirmacao = confirm("Deseja continuar?");
 
-confirmacao == true ? console.log(nome, ", seu IMC é", imc) : console.log("Você saiu do programa");
+confirmacao == true ? console.log(nome, ", seu IMC é", imc) : alert("Você saiu do programa");
