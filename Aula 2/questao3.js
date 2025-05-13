@@ -2,6 +2,8 @@ let idade;
 
 idade = prompt("Informe sua idade: ");
 
+idade = Number(idade);
+
 let permitido = true;
 permitido = idade >= 18 ? true : false;
 
