@@ -10,11 +10,6 @@ altura = Number(altura);
 
 let imc = peso/(altura*altura);
 
-console.log("Seus dados:");
-console.log("Nome: ", nome);
-console.log("Peso: ", peso, "kg");
-console.log("Altura: ", altura, "m");
-
-confirmacao = confirm("Deseja continuar?");
+confirmacao = confirm(`Seus dados: \n Nome: ${nome} \n Peso: ${peso} kg \n Altura: ${altura}  m \n\n Deseja continuar?`);
 
 confirmacao == true ? alert(nome + ", seu IMC é  " + imc) : alert("Você saiu do programa");
