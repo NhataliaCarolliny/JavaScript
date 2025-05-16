@@ -1,15 +1,16 @@
-let nome, numero, tentativas = 0, numeroSorteado, confirmacao, contador = 0;
+let nome = [], numero, tentativas = 1, numeroSorteado, confirmacao, melhorJogador, contador = 0;
 
 alert("Seja bem-vindo ao jogo da advinhação!");
 
-nome = prompt("Qual o seu nome, jogador?");
+nome[contador] = prompt("Qual o seu nome, jogador?");
 
-alert(`Olá ${nome}! \nPreparando o jogo...`)
+alert(`Olá, ${nome}! \nPreparando o jogo...`);
+
+alert("Um número de 0 a 100 foi sorteado! \nTente advinhar qual é. Boa Sorte!");
+
+numeroSorteado = parseInt(Math.ceil(Math.random()*100));
 
 while(true) {
-    numeroSorteado = parseInt(Math.ceil(Math.random()*10));
-
-    alert("Um número de 0 a 100 foi sorteado! \nTente advinhar qual é. Boa Sorte!")
 
     numero = Number(prompt("Digite um número:"));
 
@@ -24,19 +25,21 @@ while(true) {
     }
     else {
         if(tentativas <= 3) {
-            alert(`Parabéns ${nome}!, você acertou em ${tentativas} tentativas. \nUau! Você é um gênio da adivinhação! 🧠`)
+            alert(`Parabéns ${nome}!, você acertou em ${tentativas} tentativa(as). \nUau! Você é um gênio da adivinhação! 🧠`)
         }
         else if(tentativas >= 4 && tentativas <= 6) {
-            alert(`Parabéns ${nome}!, você acertou em ${tentativas} tentativas. \nMuito bem! Você foi rápido! 🚀`)
+            alert(`Parabéns ${nome}!, você acertou em ${tentativas} tentativa(as). \nMuito bem! Você foi rápido! 🚀`)
         }
         else {
-            alert(`Parabéns ${nome}!, você acertou em ${tentativas} tentativas. \nConseguiu! Persistência é tudo! 💪`)
-        }   
+            alert(`Parabéns ${nome}!, você acertou em ${tentativas} tentativa(as). \nConseguiu! Persistência é tudo! 💪`)
+        }  
+
+        confirmacao = confirm("Deseja jogar novamente?");
+
+        if (confirmacao == false) {
+            alert(`🏆 Novo recorde! ${nome} é o melhor jogador com ${tentativas} tentativa(as).`);
+            break
+        }
     }
-
-    confirmacao = confirm("Deseja jogar novamente?");
-    
-    confirmacao == true ? alert(`Reiniciando...`) : alert(`🏆 Novo recorde! ${nome} é o melhor jogador com ${tentativas} tentativas.`);
-
     contador++
 }
