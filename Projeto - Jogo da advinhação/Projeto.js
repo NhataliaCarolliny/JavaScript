@@ -1,4 +1,4 @@
-let nome = [], numero, tentativas = 1, numeroSorteado, confirmacao, melhorJogador, contador = 0;
+let nome = [], numero, tentativas = [], i = 0, numeroSorteado, confirmacao, melhorJogador, contador = 0;
 
 while (true) {
 
@@ -6,7 +6,7 @@ while (true) {
 
     nome[contador] = prompt("Qual o seu nome, jogador?");
 
-    alert(`Olá, ${nome}! \nPreparando o jogo...`);
+    alert(`Olá, ${nome[contador]}! \nPreparando o jogo...`);
 
     alert("Um número de 0 a 100 foi sorteado! \nTente advinhar qual é. Boa Sorte!");
 
@@ -29,22 +29,22 @@ while (true) {
         }
         else {
             if(tentativas <= 3) {
-                alert(`Parabéns ${nome}!, você acertou em ${tentativas} tentativa(as). \nUau! Você é um gênio da adivinhação! 🧠`)
+                alert(`Parabéns ${nome[contador]}!, você acertou em ${tentativas} tentativa(as). \nUau! Você é um gênio da adivinhação! 🧠`)
                 break
             }
             else if(tentativas >= 4 && tentativas <= 6) {
-                alert(`Parabéns ${nome}!, você acertou em ${tentativas} tentativa(as). \nMuito bem! Você foi rápido! 🚀`)
+                alert(`Parabéns ${nome[contador]}!, você acertou em ${tentativas} tentativa(as). \nMuito bem! Você foi rápido! 🚀`)
                 break
             }
             else {
-                alert(`Parabéns ${nome}!, você acertou em ${tentativas} tentativa(as). \nConseguiu! Persistência é tudo! 💪`)
+                alert(`Parabéns ${nome[contador]}!, você acertou em ${tentativas} tentativa(as). \nConseguiu! Persistência é tudo! 💪`)
                 break
             }  
         }
     }
     confirmacao = confirm("Deseja jogar novamente?");
         if (confirmacao == false) {
-            alert(`🏆 Novo recorde! ${nome} é o melhor jogador com ${tentativas} tentativa(as).`);
+            alert(`🏆 Novo recorde! ${nome[contador]} é o melhor jogador com ${tentativas} tentativa(as).`);
             break
         }
     contador++
