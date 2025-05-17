@@ -1,4 +1,4 @@
-let nome = [], numero, tentativas = [], i = 0, numeroSorteado, confirmacao, melhorJogador, contador = 0;
+let nome = [], numero, tentativas = 0, numeroSorteado, confirmacao, melhorJogador, contador = 0;
 
 while (true) {
 
