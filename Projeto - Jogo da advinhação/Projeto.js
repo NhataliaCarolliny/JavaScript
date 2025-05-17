@@ -1,4 +1,4 @@
-let melhorJogador = " ", melhorPontuacao = 999, numero, numeroSorteado, confirmacao, contador = 0;
+let melhorJogador = " ", melhorPontuacao = 999, numero, numeroSorteado, confirmacao;
 
 while (true) {
     let nome, tentativas = 0;
@@ -54,5 +54,4 @@ while (true) {
         alert(`🏆 Novo recorde! ${melhorJogador} é o melhor jogador com ${melhorPontuacao} tentativa(as).`);
         break
     }
-    contador++
 }
