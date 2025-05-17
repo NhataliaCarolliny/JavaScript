@@ -1,22 +1,24 @@
-let nome = [], numero, tentativas = 1, numeroSorteado, confirmacao, melhorJogador, contador = 0;
+let melhorJogador = " ", melhorPontuacao = 999, numero, numeroSorteado, confirmacao, contador = 0;
 
 while (true) {
+    let nome, tentativas = 0;
 
     alert("Seja bem-vindo ao jogo da advinhação!");
 
-    nome[contador] = prompt("Qual o seu nome, jogador?");
+    nome = prompt("Qual o seu nome, jogador?");
 
-    alert(`Olá, ${nome[contador]}! \nPreparando o jogo...`);
+    alert(`Olá, ${nome}! \nPreparando o jogo...`);
 
     alert("Um número de 0 a 100 foi sorteado! \nTente advinhar qual é. Boa Sorte!");
 
     numeroSorteado = parseInt(Math.ceil(Math.random()*100));
-
+    
     console.log(numeroSorteado);
     
     while(true) {
         
         numero = Number(prompt("Digite um número:"));
+        tentativas++
 
         if(numero != numeroSorteado) {
             if(numero < numeroSorteado) {
@@ -25,27 +27,32 @@ while (true) {
             else {
                 alert("O número que você digitou é MAIOR que o número sorteado.");
             }
-            tentativas++
         }
         else {
             if(tentativas <= 3) {
-                alert(`Parabéns ${nome[contador]}!, você acertou em ${tentativas} tentativa(as). \nUau! Você é um gênio da adivinhação! 🧠`)
-                break
+                alert(`Parabéns, ${nome}!, você acertou em ${tentativas} tentativa(as). \nUau! Você é um gênio da adivinhação! 🧠`);
+                
             }
             else if(tentativas >= 4 && tentativas <= 6) {
-                alert(`Parabéns ${nome[contador]}!, você acertou em ${tentativas} tentativa(as). \nMuito bem! Você foi rápido! 🚀`)
-                break
+                alert(`Parabéns, ${nome}!, você acertou em ${tentativas} tentativa(as). \nMuito bem! Você foi rápido! 🚀`);
+                
             }
             else {
-                alert(`Parabéns ${nome[contador]}!, você acertou em ${tentativas} tentativa(as). \nConseguiu! Persistência é tudo! 💪`)
-                break
-            }  
+                alert(`Parabéns, ${nome}!, você acertou em ${tentativas} tentativa(as). \nConseguiu! Persistência é tudo! 💪`);
+                
+            }
+            if (tentativas < melhorPontuacao) {
+                melhorPontuacao = tentativas;
+                melhorJogador = nome;
+            }
+            break;
         }
     }
-    confirmacao = confirm("Deseja jogar novamente?");
-        if (confirmacao == false) {
-            alert(`🏆 Novo recorde! ${nome[contador]} é o melhor jogador com ${tentativas} tentativa(as).`);
-            break
-        }
+    confirmacao = confirm(`Sua pontuação foi de ${tentativas} tentativa(as). \n\nDeseja jogar novamente?`);
+
+    if (confirmacao == false) {
+        alert(`🏆 Novo recorde! ${melhorJogador} é o melhor jogador com ${melhorPontuacao} tentativa(as).`);
+        break
+    }
     contador++
 }
