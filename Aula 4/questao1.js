@@ -22,7 +22,7 @@ while (true) {
 
     if (confirmacao == true) {
         nome = prompt("Qual seu nome?");
-        idade = prompt("Qual sua idade?");
+        idade = Number(prompt("Qual sua idade?"));
     }
     else {
         break;
