@@ -118,8 +118,6 @@ while (true) {
     preco = Number(prompt("Qual o preço do produto?"));
 
     porcentagemDesconto = Number(prompt("Qual a porcentagem de desconto?"));
-
-    console.log(calcularDesconto(preco, porcentagemDesconto));
     
     alert(`Preço do produto: ${preco} \nDesconto: ${porcentagemDesconto}% \nValor do produto com desconto: ${calcularDesconto(preco, porcentagemDesconto)}`);
 
