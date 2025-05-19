@@ -96,6 +96,9 @@ function mensagemDeBoasVindas (nome) {
     else if (hora >= 18 && hora <= 23) {
         return alert(`Boa noite, ${nome}!`);
     }
+    else {
+        return alert(`Olá, ${nome}`);
+    }
 }
 
 nome = prompt("Qual o seu nome?");
