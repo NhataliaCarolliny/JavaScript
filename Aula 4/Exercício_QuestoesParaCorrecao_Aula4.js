@@ -125,10 +125,8 @@ while (true) {
     
     confimacao = confirm("Deseja calcular o desconto de outro produto?");
 
-    if (confimacao == true) { 
-    }
-    else {
-        break;
+    if (confimacao == false) { 
+       break;
     }
 }
 
