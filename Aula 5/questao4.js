@@ -10,9 +10,9 @@ function obterMaior (numeros) {
 
 function obterMenor (numeros) {
     let menorNumero = 0;
-    for (menorNumero of numeros) {
-        if(numeros < menorNumero) {
-            menorNumero = numeros;
+    for (let chave of numeros) {
+        if(numeros[chave] < menorNumero) {
+            menorNumero = numeros[chave];
         } 
     }    
     console.log(`Menor número: ${menorNumero}`);
