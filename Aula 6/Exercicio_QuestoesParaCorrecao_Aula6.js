@@ -89,9 +89,7 @@ const produto = {
     preco: 1200
 };
 
-let resultado = protegerObejetos(produto, "selado");
-
-console.log(resultado);
+protegerObejetos(produto, "selado");
 
 //Questão 6 - Sistema de Gerenciamento de Produtos
 
