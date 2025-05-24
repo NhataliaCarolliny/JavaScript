@@ -24,7 +24,7 @@ const usuario = {
 
 atualizarIdade(usuario, 30);
 
-console.log(usuario.idade);
+console.log(`Nova idade do usuário: ${usuario.idade}`);
 
 //Questão 3 - Explorador de Objetos
 
