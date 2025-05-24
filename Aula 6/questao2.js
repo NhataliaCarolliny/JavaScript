@@ -10,4 +10,4 @@ const usuario = {
 
 atualizarIdade(usuario, 30);
 
-console.log(usuario.idade);
+console.log(`Nova idade do usuário: ${usuario.idade}`);
