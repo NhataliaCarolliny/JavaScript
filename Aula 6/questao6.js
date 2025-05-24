@@ -1,7 +1,7 @@
 function gerenciarProdutos (produtos, comando, nomeProduto, qntEstoque) {
     if (comando === "listarDisponiveis") {
-        let listar = produtos.filter(function(produtos) {
-            return produtos.estoque > 0;    
+        let listar = produtos.filter(function(listar) {
+            return listar.estoque > 0;    
         })
         for (let chave in listar) {
             console.log(listar[chave].nome);
