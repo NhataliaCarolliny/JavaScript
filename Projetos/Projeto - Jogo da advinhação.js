@@ -13,8 +13,6 @@ while (true) {
 
     numeroSorteado = parseInt(Math.ceil(Math.random()*100));
     
-    console.log(numeroSorteado);
-    
     while(true) {
         
         numero = Number(prompt("Digite um número:"));
