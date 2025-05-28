@@ -59,7 +59,7 @@ somarNumeros(numeros);
 
 function obterMaior (numeros) {
     let maiorNumero = 0;
-    for (chave of numeros) {
+    for (let chave of numeros) {
         if(chave > maiorNumero) {
             maiorNumero = chave;
         } 
