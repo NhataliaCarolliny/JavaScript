@@ -93,26 +93,35 @@
 
         campoBusca.addEventListener("keyup", () => {
             const termo = campoBusca.value.toLowerCase();
+            let contador1 = 0;
 
-            if (termo != listaProdutos) {
+            /*if (termo != listaProdutos) {
                 mensagemErro.classList.add("mensagem-erro");
-            }
+            }*/
 
             listaProdutos.forEach(produto => {
                 const itens = produto.textContent.toLowerCase();
 
                 if(itens.includes(termo)) {
-                    produto.classList.remove("hidden");
-                    produto.classList.add("highlight");
-
-                    if (termo === "") {
-                        produto.classList.remove("highlight");
-                    }
+                  contador1++;
+                  produto.classList.remove("hidden");
+                  produto.classList.add("highlight");
+                  if (termo === "") {
+                      produto.classList.remove("highlight");
+                  }
                 }
                 else {
                     produto.classList.add("hidden");
                 }
             })
+            if(contador1 > 0) {
+              console.log(contador1);
+              contador.classList.add("contador");
+              contador.textContent =`${contador1} de 7 produtos`;
+            }
+            else {
+              mensagemErro.classList.add("mensagem-erro");
+            }
         });
 
     </script>
