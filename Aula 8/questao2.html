@@ -89,10 +89,14 @@
         const listaProdutos = document.querySelectorAll("#listaProdutos li");
 
         const mensagemErro = document.getElementById("mensagem-erro");
-        const contador = document.getElementById("contador");
+        const contador = parseInt(document.getElementById("contador"));
 
         campoBusca.addEventListener("keyup", () => {
             const termo = campoBusca.value.toLowerCase();
+
+            if (termo != listaProdutos) {
+                mensagemErro.classList.add("mensagem-erro");
+            }
 
             listaProdutos.forEach(produto => {
                 const itens = produto.textContent.toLowerCase();
@@ -100,11 +104,14 @@
                 if(itens.includes(termo)) {
                     produto.classList.remove("hidden");
                     produto.classList.add("highlight");
+
+                    if (termo === "") {
+                        produto.classList.remove("highlight");
+                    }
                 }
                 else {
                     produto.classList.add("hidden");
                 }
-                
             })
         });
 
