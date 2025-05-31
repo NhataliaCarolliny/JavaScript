@@ -85,7 +85,7 @@
 
     <script>
       
-      const campoBusca = document.getElementById ("campoBusca");
+        const campoBusca = document.getElementById ("campoBusca");
         const listaProdutos = document.querySelectorAll("#listaProdutos li");
 
         const mensagemErro = document.getElementById("mensagem-erro");
@@ -98,11 +98,6 @@
             listaProdutos.forEach(produto => {
                 const itens = produto.textContent.toLowerCase();
 
-                if (termo != produto) {
-                  mensagemErro.classList.add("mensagem-erro");
-                  mensagemErro.textContent = `${mensagemErro}`;
-                }
-
                 if(itens.includes(termo)) {
                   contador1++;
                   produto.classList.remove("hidden");
@@ -110,24 +105,26 @@
 
                   if (termo === "") {
                       produto.classList.remove("highlight");
-                      mensagemErro.classList.remove("mensagem-erro");
                   }
                 }
                 else {
                     produto.classList.add("hidden");
                 }
             })
-            if(contador1 >= 1 && contador1 < 7) {
-              console.log(contador1);
+            if(contador1 > 0 && contador1 < 7) {
+              
               contador.classList.add("contador");
               contador.textContent =`${contador1} de 7 produtos`;
+              mensagemErro.style.display = "none";
             }
             else {
               contador.textContent = `${contador1} de 7 produtos`;
-              mensagemErro.classList.add("mensagem-erro");
+              mensagemErro.classList.add ("mensagem-erro");
+              mensagemErro.style.display = "block";
+
               if (termo === "") {
                 contador.textContent = ""
-                mensagemErro.classList.remove("mensagem-erro");
+                mensagemErro.style.display = "none";
               }
             }
         });
