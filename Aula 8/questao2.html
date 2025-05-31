@@ -85,7 +85,7 @@
 
     <script>
       
-       const campoBusca = document.getElementById ("campoBusca");
+      const campoBusca = document.getElementById ("campoBusca");
         const listaProdutos = document.querySelectorAll("#listaProdutos li");
 
         const mensagemErro = document.getElementById("mensagem-erro");
@@ -98,13 +98,17 @@
             listaProdutos.forEach(produto => {
                 const itens = produto.textContent.toLowerCase();
 
+                if (termo != produto) {
+                  mensagemErro.classList.add("mensagem-erro");
+                  mensagemErro.textContent = `${mensagemErro}`;
+                }
+
                 if(itens.includes(termo)) {
                   contador1++;
                   produto.classList.remove("hidden");
                   produto.classList.add("highlight");
 
                   if (termo === "") {
-                      contador.textContent = ""
                       produto.classList.remove("highlight");
                       mensagemErro.classList.remove("mensagem-erro");
                   }
@@ -119,8 +123,12 @@
               contador.textContent =`${contador1} de 7 produtos`;
             }
             else {
+              contador.textContent = `0 de 7 produtos`;
               mensagemErro.classList.add("mensagem-erro");
-              mensagemErro.textContent = `${mensagemErro}`
+              if (termo === "") {
+                contador.textContent = ""
+                mensagemErro.classList.remove("mensagem-erro");
+              }
             }
         });
 
