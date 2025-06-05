@@ -72,7 +72,7 @@
     <form id="formProduto">
       <input type="text" minlength="3" id="nome" placeholder="Nome do produto" required />
       <input type="number" id="preco" placeholder="Preço (R$)" required />
-      <select id="categoria" required >
+      <select id="categoria" >
         <option value="">Selecione a categoria</option>
         <option>Eletrônicos</option>
         <option>Livros</option>
@@ -114,6 +114,24 @@
         }
         else {
             mensagemErro.textContent = "";
+        }
+
+        if(nomeTexto.length < 3) {
+          mensagemErro.textContent = "Erro";
+          alert("O nome do produto deve ter no mínimo 3 caracteres");
+          return;
+        }
+        else {
+          mensagemErro.textContent = "";
+        }
+
+        if (!categoriaTexto) {
+          mensagemErro.textContent = "Erro";
+          alert("A categoria é obrigatória ser preenchida");
+          return
+        }
+        else {
+          mensagemErro.textContent = ""
         }
 
         listar.innerHTML = `<p> Produto cadastrado! </p> <p> ${nomeTexto} </p> <p><strong> Preço:</strong> ${precoTexto} </p> <p><strong> Categoria:</strong> ${categoriaTexto} </p> <p><strong> Descrição:</strong> ${descricaoTexto} </p> <p><strong> Cadastrado em:</strong> ${data}</p>`;
