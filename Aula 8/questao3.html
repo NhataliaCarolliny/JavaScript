@@ -103,9 +103,11 @@
         event.preventDefault();
         
         const nomeTexto = nome.value;
-        const precoTexto = preco.value;
+        const precoTexto = parseFloat(preco.value);
         const categoriaTexto = categoria.value;
-        const descricaoTexto = descricao.value;
+        let descricaoTexto = descricao.value;
+
+        let precoFixado = precoTexto.toFixed(2);
 
         if(precoTexto < 0) {
             mensagemErro.textContent = "Erro";
@@ -134,7 +136,11 @@
           mensagemErro.textContent = ""
         }
 
-        listar.innerHTML = `<p> Produto cadastrado! </p> <p> ${nomeTexto} </p> <p><strong> Preço:</strong> ${precoTexto} </p> <p><strong> Categoria:</strong> ${categoriaTexto} </p> <p><strong> Descrição:</strong> ${descricaoTexto} </p> <p><strong> Cadastrado em:</strong> ${data}</p>`;
+        if(!descricaoTexto) {
+          descricaoTexto = "Sem descrição";
+        }
+
+        listar.innerHTML = `<p> Produto cadastrado! </p> <p> ${nomeTexto} </p> <p><strong> Preço:</strong> R$ ${precoFixado} </p> <p><strong> Categoria:</strong> ${categoriaTexto} </p> <p><strong> Descrição:</strong> ${descricaoTexto} </p> <p><strong> Cadastrado em:</strong> ${data}</p>`;
 
         formulario.reset();
     });
