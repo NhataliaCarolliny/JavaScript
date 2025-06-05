@@ -73,7 +73,7 @@ function verificarResposta(indiceAtual) {
 }
 
 function reproduzirSom(nome) {
-  const audio = new Audio(`./sounds/${nome}.mp3`);
+  const audio = new Audio(`./Som/${nome}.mp3`);
   audio.play();
 }
 
