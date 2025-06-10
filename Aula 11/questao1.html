@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Escolher Tema</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .botao-tema {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .claro {
+      background-color: #fff;
+      color: #333;
+    }
+
+    .escuro {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+    }
+
+    .botao-tema:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+    
+  <h2>Escolha seu tema</h2>
+  <button class="botao-tema" onclick="setarTema('claro')">Tema Claro</button>
+  <button class="botao-tema" onclick="setarTema('escuro')">Tema Escuro</button>
+
+  <script>
+    const body = document.body;
+
+    document.addEventListener("DOMContentLoaded", setarTema)
+    const tema = 
+    setarTema(tema);
+
+    function setarTema(tema) {
+        localStorage.setItem("tema", tema);
+        
+        if(tema === "claro") {
+            body.classList.add(`claro`);
+            body.classList.remove(`escuro`);
+        }
+        else if (tema === "escuro") {
+            body.classList.remove(`claro`);
+            body.classList.add(`escuro`);
+        }
+    }
+  </script>
+
+</body>
+</html>
