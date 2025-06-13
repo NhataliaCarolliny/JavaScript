@@ -119,37 +119,57 @@
        let botao = document.getElementById("btn-adicionar-comentario");
        let secaoComentarios = document.getElementById("secaoComentarios");
 
-       const data = new Date();
-       const dataFormatada = data.toLocaleString("pt-BR");
+       botao.addEventListener("click", () => {
+        let nomeTexto = nome.value;
+        let comentarioTexto = comentario.value;
 
-       function pegarNomeComentario () {
-
-            let nomeTexto = nome.value;
-            let comentarioTexto = comentario.value;
-
-            if (!nomeTexto || !comentarioTexto) {
-            alert("Por favor, preencha nome e email.");
-            return;
-            }
-       }
-       nome.value = "";
-       comentario.value = "";
-       nome.focus();
-
-       function adicionarNomeComentario () {
-        const nomeEComentario = pegarNomeComentario();
-
-        if (!nomeEComentario){
-            return;
+        if (!nomeTexto || !comentarioTexto) {
+          alert("Preencher os campos de nome e comentário!");
+          return;
         }
 
-        secaoComentarios = document.createElement("div");
+        function adicionarNomeEComentario () {
 
-        secaoComentarios.innerHTML = `<p>Nome: ${nomeTexto}</p> <p> Comentário: ${comentarioTexto} </p> <p> Data: ${dataFormatada}</p>`
-       }
+          const novoNomeEComentario = document.createElement("div");
+          novoNomeEComentario.classList.add("comentario");
 
-       botao.addEventListener("click", adicionarNomeComentario);
+          const novoNome = document.createElement("h3");
+          novoNome.classList.add("autor");
+          novoNome.textContent = nomeTexto;
 
+          const novoComentario = document.createElement("p");
+          novoComentario.classList.add("texto-comentario");
+          novoComentario.textContent = comentarioTexto;
+
+          const data = document.createElement("p");
+          data.classList.add("data");
+          const dataFormatada = new Date();
+          data.textContent = `Comentado em: ${dataFormatada.toLocaleString("pt-BR")}`;
+
+          const remover = document.createElement("button");
+          remover.classList.add("remover");
+          remover.textContent = "Remover";
+
+          novoNomeEComentario.appendChild(novoNome);
+          novoNomeEComentario.appendChild(novoComentario);
+          novoNomeEComentario.appendChild(data);
+          novoNomeEComentario.appendChild(remover);
+
+          secaoComentarios.appendChild(novoNomeEComentario);
+
+          nome.value = "";
+          comentario.value = "";
+          nome.focus();
+
+          remover.addEventListener("click", () => {
+            novoNomeEComentario.remove();
+          });
+
+        }
+
+        adicionarNomeEComentario();
+
+       });
     </script>
   </body>
 </html>
