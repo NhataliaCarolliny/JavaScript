@@ -52,20 +52,24 @@
   <script>
     const body = document.body;
 
-    document.addEventListener("DOMContentLoaded", setarTema)
-    const tema = 
-    setarTema(tema);
+    document.addEventListener("DOMContentLoaded", () => {
+      const temaSalvo = localStorage.getItem("tema");
+      if (temaSalvo) {
+        setarTema(temaSalvo);
+      }
+    });
 
     function setarTema(tema) {
-        localStorage.setItem("tema", tema);
         
         if(tema === "claro") {
             body.classList.add(`claro`);
             body.classList.remove(`escuro`);
+            localStorage.setItem("tema", tema);
         }
         else if (tema === "escuro") {
             body.classList.remove(`claro`);
             body.classList.add(`escuro`);
+            localStorage.setItem("tema", tema);
         }
     }
   </script>
