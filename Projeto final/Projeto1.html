@@ -104,7 +104,7 @@ ul {
   color: #666;
 }
 
-.tarefas .concluidas {
+.concluidas {
   background: #00A8FF;
   color: #FFF;
   text-decoration: line-through;
@@ -275,14 +275,6 @@ ul {
       idEdicao = id;
     }
 
-    //Tarefas concluídas
-    function concluirTarefas(id) {
-      const gerenciadorTarefas = getGerenciadorTarefasLocalStorage();
-      const tarefas = gerenciadorTarefas.find(gt => gt.id === id);
-
-      tarefas.classList.toggle("concluidas");      
-    }
-
     // Adiciona tarefas no DOM
       function adicionarTarefasNoDOM(tarefas) {
         const clone = template.content.cloneNode(true);
@@ -304,9 +296,7 @@ ul {
         });
 
       // Botão Concluída
-        clone.querySelector('.concluida').addEventListener('click', () => 
-          concluirTarefas(tarefas.id)
-        );
+        clone.querySelector('.concluida').addEventListener('click', () => li.classList.toggle("concluidas"));
 
         listaGerenciadorTarefas.appendChild(clone);
       }
