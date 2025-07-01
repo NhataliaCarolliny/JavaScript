@@ -113,29 +113,31 @@ button:active {
     }
 
     async function MostrarConselho() {
-        limparResposta();
         respostaDiv.innerHTML = 'Carregando conselho...';
         try {
-            //Pega o link da API com fetch
+            //Pega o link da API com fetch e retorna uma Promise
             const response = await fetch(`${API_URL}`);
 
-            //transforma a API em objeto no JavaScript com o json
+            //Transforma a API em objeto no JavaScript com o json
             const date = await response.json();
 
             //Pega o dado dentro do objeto
             const conselhos = date.slip.advice;
             const idConselhos = date.slip.id;
 
+            //Chama a função para limpar o que está no DOM (frase "carregando conselho")
             limparResposta();
 
             //Preenche a div com as informações da API
             const card = `
             <div class="card">
-                <p><strong>Conselho:</strong></p>
+                <h4><strong>Conselho:</strong></h4>
                 <p><strong>${conselhos}</strong></p>
                 <p><strong>id: ${idConselhos}</strong></p>
             </div>
             `;
+
+            //Concatena (coloca o card dentro da div)
             respostaDiv.innerHTML += card;
 
         }
