@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conselhos do dia</title>
+<style>
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #ECD4FF;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #000080;
+  text-align: center;
+}
+
+/* Container do botão */
+.botao-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+/* Estilização do botão */
+button {
+  padding: 12px 20px;
+  background-color: #00CED1;
+  color: #F0FFF0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #008080;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Área de resposta da API */
+#resposta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Card de cada item retornado da API */
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 15px;
+  width: 250px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+</style>
+</head>
+<body>
+  <h1>Conselhos do dia</h1>
+
+  <div class="botao-container">
+    <button onclick="MostrarConselho()">Mostrar Conselho</button>
+  </div>
+
+  <div id="resposta"></div>
+
+  <script>
+   const respostaDiv = document.getElementById('resposta');
+   const API_URL = 'https://api.adviceslip.com/advice'; 
+
+   // Função para limpar a área de resposta
+    function limparResposta() {
+        respostaDiv.innerHTML = '';
+    }
+
+    async function MostrarConselho() {
+        limparResposta();
+        respostaDiv.innerHTML = 'Carregando conselho...';
+        try {
+            //Pega o link da API com fetch
+            const response = await fetch(`${API_URL}`);
+
+            //transforma a API em objeto no JavaScript com o json
+            const date = await response.json();
+
+            //Pega o dado dentro do objeto
+            const conselhos = date.slip.advice;
+            const idConselhos = date.slip.id;
+
+            limparResposta();
+
+            //Preenche a div com as informações da API
+            const card = `
+            <div class="card">
+                <p><strong>Conselho:</strong></p>
+                <p><strong>${conselhos}</strong></p>
+                <p><strong>id: ${idConselhos}</strong></p>
+            </div>
+            `;
+            respostaDiv.innerHTML += card;
+
+        }
+        catch (err) {
+            respostaDiv.innerHTML = 'Erro ao carregar conselho.';
+        }
+    }
+  </script>
+</body>
+</html>

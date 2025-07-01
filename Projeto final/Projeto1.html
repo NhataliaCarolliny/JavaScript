@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Genciador de tarefas</title>
+</head>
+<style>
+  /* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #87CEFA;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Título */
+h1 {
+  color: #1d44b8;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+/* Formulário */
+form {
+  background: #C0C0C0;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1 1 200px;
+}
+
+form button {
+  background-color: #666666;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+form button:hover {
+  background-color: #2E2E2E;
+}
+
+/* Lista de tarefas */
+ul {
+  list-style: none;
+  width: 100%;
+  max-width: 600px;
+}
+
+.tarefas {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.tarefas:hover {
+  transform: translateY(-3px);
+}
+
+.tarefas-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.tarefas .tarefa {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.tarefas .descricao {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.tarefas .concluidas {
+  background: #00A8FF;
+  color: #FFF;
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+/* Botões Editar/Remover/Concluída */
+.tarefas button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tarefas button.editar {
+  background-color: #ffa500;
+}
+
+.tarefas button.editar:hover {
+  background-color: #e69500;
+}
+
+.tarefas button.remover {
+  background-color: #ff4d4d;
+}
+
+.tarefas button.remover:hover {
+  background-color: #e60000;
+}
+
+.tarefas button.concluida {
+  background-color: #90EE90;
+}
+
+.tarefas button.concluida:hover {
+  background-color: #229A00;
+}
+
+.riscar {
+  text-decoration : line-through;
+}
+
+</style>
+<body>
+
+  <h1>Lista de Tarefas</h1>
+
+  <form id="form-tarefas">
+    <input type="text" id="tarefa" placeholder="Tarefa" required>
+    <input type="text" id="descricao" placeholder="Descrição da Tarefa" required>
+    <button type="submit">Adicionar Tarefa</button>
+    <div id="filtro">
+    <h4>Filtrar Tarefas:</h4>
+    <select id="filtro-selecao">
+      <option value="todos">Todas</option>
+      <option value="feitos">Feitas</option>
+      <option value="aFazer">A Fazer</option>
+    </select>
+  </div>
+  </form>
+
+  <ul id="lista-gerenciadorTarefas">
+    
+  </ul>
+
+  <!-- Template de tarefas -->
+  <template id="template-tarefas">
+    <li class="tarefas">
+      <div class="tarefas-info">
+        <div>
+          <p class="tarefa"></p>
+          <p class="descricao"></p>
+        </div>
+      </div>
+      <div>
+        <button class="editar">Editar</button>
+        <button class="remover">Remover</button>
+        <button class="concluida">Concluída</button>
+      </div>
+    </li>
+  </template>
+
+  <script>
+    const listaGerenciadorTarefas = document.getElementById('lista-gerenciadorTarefas');
+    const formTarefas = document.getElementById ('form-tarefas');
+    const tarefaInput = document.getElementById('tarefa');
+    const descricaoInput = document.getElementById('descricao');
+    const template = document.getElementById('template-tarefas');
+
+
+    let idEdicao = null;
+
+    // Carregar dados do LocalStorage ao iniciar
+    document.addEventListener('DomContentLoaded', carregarGerenciadorTarefas);
+
+    function carregarGerenciadorTarefas () {
+      const gerenciadorTarefas = getGerenciadorTarefasLocalStorage();
+      listaGerenciadorTarefas.innerHTML= ''; //limpa a lista
+
+      gerenciadorTarefas.forEach(tarefas => adicionarTarefasNoDOM(tarefas));
+    }
+
+    // Pega o array de tarefas do LocalStorage
+    function getGerenciadorTarefasLocalStorage() {
+      const gerenciadorTarefas = localStorage.getItem('gerenciadorTarefas');
+      return gerenciadorTarefas ? JSON.parse(gerenciadorTarefas) : [];
+    }
+
+    // Salva o array no LocalStorage
+    function salvarGerenciadorTarefasLocalStorage (gerenciadorTarefas) {
+      localStorage.setItem('gerenciadorTarefas', JSON.stringify(gerenciadorTarefas));
+    }
+
+    // Adiciona ou edita tarefas
+      formTarefas.addEventListener('submit', (evento) => {
+        evento.preventDefault();
+        const tarefa = tarefaInput.value.trim();
+        const descricao = descricaoInput.value.trim();
+
+        if (!tarefa || !descricao) {
+          alert("Por favor, preencha os campos.");
+          return;
+        }
+
+        const gerenciadorTarefas = getGerenciadorTarefasLocalStorage();
+
+      if (idEdicao) {
+        // Editar
+        const index = gerenciadorTarefas.findIndex(gt => gt.id === idEdicao);
+        gerenciadorTarefas[index].task = tarefa;
+        gerenciadorTarefas[index].description = descricao;
+
+        idEdicao = null;
+      } else {
+        // Adicionar nova tarefa
+        const novasTarefas = {
+          id: Date.now(),
+          task: tarefa,
+          description: descricao
+        };
+        gerenciadorTarefas.push(novasTarefas);
+
+        }
+
+        salvarGerenciadorTarefasLocalStorage(gerenciadorTarefas);
+        carregarGerenciadorTarefas();
+        formTarefas.reset();
+    });
+
+    // Remover tarefas
+    function removerTarefas(id) {
+      const gerenciadorTarefas = getGerenciadorTarefasLocalStorage();
+      const novoGerenciadorTarefas = gerenciadorTarefas.filter(gt => gt.id !== id);
+      salvarGerenciadorTarefasLocalStorage(novoGerenciadorTarefas);
+      carregarGerenciadorTarefas();
+    }
+
+    // Editar tarefas
+    function editarTarefas(id) {
+      const gerenciadorTarefas = getGerenciadorTarefasLocalStorage();
+      const tarefas = gerenciadorTarefas.find(gt => gt.id === id);
+
+      tarefaInput.value = tarefas.task;
+      descricaoInput.value = tarefas.description;
+      idEdicao = id;
+    }
+
+    //Tarefas concluídas
+    function concluirTarefas(id) {
+      const gerenciadorTarefas = getGerenciadorTarefasLocalStorage();
+      const tarefas = gerenciadorTarefas.find(gt => gt.id === id);
+
+      tarefas.classList.toggle("concluidas");      
+    }
+
+    // Adiciona tarefas no DOM
+      function adicionarTarefasNoDOM(tarefas) {
+        const clone = template.content.cloneNode(true);
+        const li = clone.querySelector('li');
+        li.id = tarefas.id;
+
+
+        clone.querySelector('.tarefa').textContent = tarefas.task;
+        clone.querySelector('.descricao').textContent = tarefas.description;
+      
+      // Botão Editar
+        clone.querySelector('.editar').addEventListener('click', () => editarTarefas(tarefas.id));
+
+      // Botão Remover
+        clone.querySelector('.remover').addEventListener('click', () => {
+          if(confirm('Deseja remover esta tarefa?')) {
+            removerTarefas(tarefas.id);
+          }
+        });
+
+      // Botão Concluída
+        clone.querySelector('.concluida').addEventListener('click', () => 
+          concluirTarefas(tarefas.id)
+        );
+
+        listaGerenciadorTarefas.appendChild(clone);
+      }
+  </script>
+
+</body>
+</html>
