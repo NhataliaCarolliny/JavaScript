@@ -6,7 +6,6 @@
   <title>Genciador de tarefas</title>
 </head>
 <style>
-  /* Reset básico */
 * {
   margin: 0;
   padding: 0;
@@ -209,12 +208,15 @@ ul {
       const gerenciadorTarefas = getGerenciadorTarefasLocalStorage();
       listaGerenciadorTarefas.innerHTML= ''; //limpa a lista
 
+      //Usa a função (que é o array) para percorrer o array e adicinar cada tarefa no DOM
       gerenciadorTarefas.forEach(tarefas => adicionarTarefasNoDOM(tarefas));
     }
 
     // Pega o array de tarefas do LocalStorage
     function getGerenciadorTarefasLocalStorage() {
       const gerenciadorTarefas = localStorage.getItem('gerenciadorTarefas');
+
+      //Retorna um objeto com o JSON.parse(pega uma string e converte em um objeto) ou um array vazio
       return gerenciadorTarefas ? JSON.parse(gerenciadorTarefas) : [];
     }
 
@@ -223,7 +225,7 @@ ul {
       localStorage.setItem('gerenciadorTarefas', JSON.stringify(gerenciadorTarefas));
     }
 
-    // Adiciona ou edita tarefas
+    // 1º Adiciona ou edita tarefas
       formTarefas.addEventListener('submit', (evento) => {
         evento.preventDefault();
         const tarefa = tarefaInput.value.trim();
@@ -236,6 +238,7 @@ ul {
 
         const gerenciadorTarefas = getGerenciadorTarefasLocalStorage();
 
+      //idEdicao diz se está editando ou adicionando uma nova tarefa, se for null quer dizer que está editando
       if (idEdicao) {
         // Editar
         const index = gerenciadorTarefas.findIndex(gt => gt.id === idEdicao);
@@ -250,12 +253,16 @@ ul {
           task: tarefa,
           description: descricao
         };
+
+        //Pega o objeto e adiciona uma nova tarefa
         gerenciadorTarefas.push(novasTarefas);
 
         }
 
         salvarGerenciadorTarefasLocalStorage(gerenciadorTarefas);
         carregarGerenciadorTarefas();
+        
+        //Reseta/limpa os campos do input
         formTarefas.reset();
     });
 
@@ -301,6 +308,8 @@ ul {
         clone.querySelector('.concluida').addEventListener('click', () => li.classList.toggle("concluidas"));
 
         listaGerenciadorTarefas.appendChild(clone);
+      }
+
       }
   </script>
 
